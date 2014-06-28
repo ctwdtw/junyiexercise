@@ -1,0 +1,272 @@
+    <!DOCTYPE html>
+    <html data-require="math word-problems graphie">
+        <head>
+		    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>雞兔問題，畫圖湊答案！</title>
+            <script src="../khan-exercise.js"></script>	
+		
+		<script type="text/javascript">
+        var R_COLOR = "purple";
+        var D_COLOR = "green";
+        var C_COLOR = "blue";
+        var K_COLOR = "red";
+
+        function initCircle( R,n ) {
+            var graph = KhanUtil.currentGraph;
+            d=0.1;
+            graph.init({
+                range: [ [0, 2*R*n+d*(n+1)], [-1.1-R, 1.1] ],
+                scale: 20
+            });
+
+            for (var i = 0; i < n; i++) { 
+                     graph.circle( [(i+1)*d+R*(2*i+1), 0], 1, { "fill-opacity": 0 } );
+                }
+			
+			
+        }
+       
+		function drawLeg(R,n){
+		var graph = KhanUtil.currentGraph;
+		
+		for (var i = 0; i < n; i++) { 
+        d=0.1;
+		graph.line( [(i+1)*d+R*(2*i+1)-d*2, -R], [(i+1)*d+R*(2*i+1)-d*2, -1], { "stroke": D_COLOR } );
+		graph.line( [(i+1)*d+R*(2*i+1)+d*2, -R], [(i+1)*d+R*(2*i+1)+d*2, -1], { "stroke": D_COLOR } );
+                }
+				
+		}
+		
+		function drawLeg1(R,n){
+		var graph = KhanUtil.currentGraph;
+		
+		for (var i = 0; i < n; i++) { 
+        d=0.1;
+		graph.line( [(i+1)*d+R*(2*i+1)-d*8, -R], [(i+1)*d+R*(2*i+1)-d*2, -1], { "stroke": K_COLOR } );
+		graph.line( [(i+1)*d+R*(2*i+1)+d*8, -R], [(i+1)*d+R*(2*i+1)+d*2, -1], { "stroke": K_COLOR } );
+                }
+				
+		}
+
+
+        function DrawDollar( R,n ) {
+            var graph = KhanUtil.currentGraph;
+            d=0.1;
+            graph.init({
+                range: [ [0, 2*R*n+d*(n+1)], [-1.1-R, 1.1] ],
+                scale: 20
+            });
+
+            for (var i = 0; i < n; i++) {
+                     graph.circle( [(i+1)*d+R*(2*i+1), 0], 1, { "fill-opacity": 0 } );
+                     graph.label( [(i+1)*d+R*(2*i+1), 0], "\\color{" + D_COLOR + "}{5}", "center" );
+                }
+
+
+        }
+
+        function DrawDollar1( R,n ) {
+            var graph = KhanUtil.currentGraph;
+            d=0.1;
+            graph.init({
+                range: [ [0, 2*R*n+d*(n+1)], [-1.1-R, 1.1] ],
+                scale: 20
+            });
+
+            for (var i = 0; i < n; i++) {
+                     graph.label( [(i+1)*d+R*(2*i+1), 0], "\\color{" + K_COLOR + "}{+5}", "below" );
+                }
+
+
+        }
+
+		function initCar( R,n ) {
+            var graph = KhanUtil.currentGraph;
+            d=0.1;
+            graph.init({
+                range: [ [0, 2*R*n+d*(n+1)], [-1.1-R, 1.1+R] ],
+                scale: 20
+            });
+
+            for (var i = 0; i < n; i++) {
+                     graph.line( [d*(i+1)+R*(2*i+1),R ], [d*(i+1)+R*(2*i+1)-R/2*1.7,-R ] );
+                     graph.line( [d*(i+1)+R*(2*i+1)-R/2*1.7,-R ], [d*(i+1)+R*(2*i+1)+R/2*1.7,-R ] );
+                     graph.line( [d*(i+1)+R*(2*i+1)-R*0.3,R+R*0.3 ], [d*(i+1)+R*(2*i+1)+R*0.3,R-R*0.3 ] );
+                }
+
+
+        }
+
+        function drawWheel(R,n){
+		var graph = KhanUtil.currentGraph;
+
+		for (var i = 0; i < n; i++) {
+        d=0.1;
+		graph.circle( [(i+1)*d+R*(2*i+1)+d*8, -R-3.5*d], 0.3, { "stroke": D_COLOR } );
+        graph.circle( [(i+1)*d+R*(2*i+1)-d*8, -R-3.5*d], 0.3, { "stroke": D_COLOR } )
+                }
+
+		}
+
+		function drawWheel1(R,n){
+		var graph = KhanUtil.currentGraph;
+
+		for (var i = 0; i < n; i++) {
+        d=0.1;
+		graph.circle( [(i+1)*d+R*(2*i+1), -R-3.5*d], 0.3, { "stroke": K_COLOR } );
+                }
+
+		}
+
+		
+       </script>
+	
+		</head>
+
+		<body>
+            <div class="exercise">
+               <div class="vars">
+			   <var id="total">randRange(5,10)</var>
+
+               <var id="chicken">randRange(2,total-1)</var>
+			   <var id="rabbit">total-chicken</var>
+			   <var id="chickenfoot">chicken*2</var>
+			   <var id="rabbitfoot">rabbit*4</var>
+               <var id="totalfoot">chickenfoot+rabbitfoot</var>
+
+               <var id="bike">randRange(2,total-1)</var>
+               <var id="tbike">total-bike</var>
+               <var id="bikewheel">bike*2</var>
+               <var id="tbikewheel">tbike*3</var>
+               <var id="totalwheel">bikewheel+tbikewheel</var>
+
+               <var id="fivecoin">randRange(2,total-1)</var>
+               <var id="tencoin">total-fivecoin</var>
+               <var id="fivecoindollar">fivecoin*5</var>
+               <var id="tencoindollar">tencoin*10</var>
+               <var id="totaldollar">fivecoindollar+tencoindollar</var>
+
+               </div>
+				
+			   <div class="problems">
+                   
+				   <div id="chicken">
+						
+						<p class="problem"></p>
+                        
+						
+						<p class="question"><!-- The question to ask the student. -->
+						農場裡養了雞和兔兩種動物，雞有2隻腳，兔有4隻腳。農場主人數了數，雞和兔加起來共有<var>total</var>隻，而雞腳和兔腳的數目加起來共有<var>totalfoot</var>隻，
+						請問農場裡養了幾隻雞和幾隻兔？</p>
+										
+                        						
+						
+						<div class="solution" data-type="multiple">
+                        <p>雞有<span class="sol" data-type="rational"><var>chicken</var></span>隻</p>
+                        <p>兔有<span class="sol" data-type="rational"><var>rabbit</var></span>隻</p>
+                        </div>
+
+                                    
+                        <div class="hints">
+					    <p>你能不能根據題目的條件，先猜猜看，或湊一下答案呢？又或著畫個圖想一想，幫助你湊數字？</P>
+						<p>如果湊不出答案，或不知道從何開始，我建議你先畫幾個圓圈，代表動物的身體，再想辦法為這些動物添上合適的腳數。</P>
+						<div class="graphie" id="circle1">initCircle(1.5,3);drawLeg(1.5,3);drawLeg1(1.5,1);</div>
+                        <p>例如這樣的一個畫法，代表有3隻動物，其中有2隻是雞(有兩隻腳)，1隻是兔子(有四隻腳)。</p>
+						<p>我們可以先畫<var>total</var>個圈，代表<var>total</var>隻動物，再為這<var>total</var>隻動物，都先接上2隻腳：</p><div class="graphie" id="circle2">initCircle(1.5,total);drawLeg(1.5,total);</div>
+						<p>如此一來，我們就有<var>total</var>隻雞，<var>total*2</var>隻腳。</p>
+					    <p>但是根據題目的條件，我們總共有<var>totalfoot</var>隻腳，所以顯然不可能全部<var>total</var>隻都是雞，一定有一些動物的腳有4隻，是兔子。</p>
+		                <p>如果我們把其中一隻動物再添上兩隻腳，它就會變成兔子，而總腳數也會增加2隻，你能夠根據這個提示，修正總腳數，找到答案嗎？</p>			
+						<p>我們總共還要再添上<var>totalfoot</var>-<var>total</var>×2=<var>totalfoot-total*2</var>隻腳。</p>
+						<div class="graphie" id="circle3">initCircle(1.5,total);drawLeg(1.5,total);drawLeg1(1.5,rabbit);</div>
+					    <p><u>把圖畫出來，答案就出來囉！一共是<var>chicken</var>隻雞，<var>rabbit</var>隻兔</u>。延伸思考：1)在解題的過程中，我們把這<var>total</var>隻動物都先接上2隻腳，這在數學解題的過程中叫做「特殊化」，透過
+						特殊化的手段考慮極端情形，往往可以讓我們對問題有更進一步的了解而獲得解題的靈感。如果反過來，考慮另一種特殊情形，先把每隻動物都先接上4隻腳，
+						也能夠解題嗎？2)如果今天雞和兔的數量很多，例如雞和兔總共100隻，總腳數308隻，用畫圖的方法解題就太麻煩了，你有甚麼好方法在數量大
+						的時候依然可以快速解題嗎？事實上是有方法的，而這個尋找方法的過程，在數學上我們叫做「一般化」的推廣，是數學家很喜歡做的事。
+						如果你找到了，恭喜你的數學能力又大大增長了一節喔！</p>			
+						<!--<p>四捨五入到整數位，即為答案分速<var>SPEED2</var>公尺</p>
+					    <!-- Any hints to show to the student. -->
+                        </div>
+				   <!--<div><code>\frac{1}{2}\times\frac{1}{7}</code> </div>-->
+				   </div>
+
+                   <div id="wheel">
+
+						<p class="problem"><!-- An overview of the problem including all needed info. --></p>
+
+
+						<p class="question"><!-- The question to ask the student. -->
+						車庫裡停了腳踏車和三輪車兩種交通工具，腳踏車有2個輪子，三輪車有3個輪子。車庫主人數了數，腳踏車和三輪車加起來共有<var>total</var>輛，而車輪的數目加起來共有<var>totalwheel</var>個，
+                        請問車庫裡停了幾輛腳踏車和幾輛三輪車？</p>
+
+
+
+						<div class="solution" data-type="multiple">
+                        <p>腳踏車<span class="sol" data-type="rational"><var>bike</var></span>輛</p>
+                        <p>三輪車<span class="sol" data-type="rational"><var>tbike</var></span>輛</p>
+                        </div>
+
+
+                        <div class="hints">
+					    <p>你能不能根據題目的條件，先猜猜看，或湊一下答案呢？又或著畫個圖想一想，幫助你湊數字？</P>
+						<p>如果湊不出答案，或不知道從何開始，我建議你先畫幾條線，代表車的骨架，再想辦法為這些車添上合適的輪子數。</P>
+						<div class="graphie" id="circle1">initCar(1.5,3);drawWheel(1.5,3);drawWheel1(1.5,1);</div>
+                        <p>例如這樣的一個畫法，代表有3輛車，其中有2輛是腳踏車(有2個輪子)，1輛是三輪車(有3個輪子)。</p>
+						<p>我們可以先畫<var>total</var>個骨架，代表<var>total</var>輛車，再為這<var>total</var>輛車，都先裝上2個輪子：</p><div class="graphie" id="circle2">initCar(1.5,total);drawWheel(1.5,total);</div>
+						<p>如此一來，我們就有<var>total</var>輛腳踏車，<var>total*2</var>個輪子。</p>
+					    <p>但是根據題目的條件，我們總共有<var>totalwheel</var>個輪子，所以顯然不可能全部<var>total</var>輛都是腳踏車，一定有一些車的輪子有3個，是三輪車。</p>
+		                <p>如果我們把其中一輛車再添上1個輪子，它就會變成三輪車，而輪子的總數也會增加1個，你能夠根據這個提示，修正輪子的總數，找到答案嗎？</p>
+						<p>我們總共還要再添上<var>totalwheel</var>-<var>total</var>×2=<var>totalwheel-total*2</var>個輪子。</p>
+						<div class="graphie" id="circle3">initCar(1.5,total);drawWheel(1.5,total);drawWheel1(1.5,tbike);</div>
+					    <p><u>把圖畫出來，答案就出來囉！一共是<var>bike</var>輛腳踏車，<var>tbike</var>輛三輪車</u>。延伸思考：1)在解題的過程中，我們把這<var>total</var>輛車都先裝上2個輪子，這在數學解題的過程中叫做「特殊化」，透過
+						特殊化的手段考慮極端情形，往往可以讓我們對問題有更進一步的了解而獲得解題的靈感。如果反過來，考慮另一種特殊情形，先把每輛車都先裝上4個輪子，
+						也能夠解題嗎？2)如果今天腳踏車和三輪車的數量很多，例如腳踏車和三輪車總共100輛，輪子的總數是219個，用畫圖的方法解題就太麻煩了，你有甚麼好方法在數量大
+						的時候依然可以快速解題嗎？事實上是有方法的，而這個尋找方法的過程，在數學上我們叫做「一般化」的推廣，是數學家很喜歡做的事。
+						如果你找到了，恭喜你的數學能力又大大增長了一節喔！</p>
+						<!--<p>四捨五入到整數位，即為答案分速<var>SPEED2</var>公尺</p>
+					    <!-- Any hints to show to the student. -->
+                        </div>
+				   <!--<div><code>\frac{1}{2}\times\frac{1}{7}</code> </div>-->
+				   </div>
+
+                   <div id="cash">
+
+						<p class="problem"><!-- An overview of the problem including all needed info. --></p>
+
+
+						<p class="question"><!-- The question to ask the student. -->
+                        撲滿裡存了5元和10元兩種不同面額的硬幣，小明數了數，5元硬幣和10元硬幣加起來共有<var>total</var>個，而總金額加起來共有<var>totaldollar</var>元，
+                        請問撲滿裡存了幾個5元硬幣和幾個10元硬幣？
+
+
+
+						<div class="solution" data-type="multiple">
+                        <p>5元硬幣有<span class="sol" data-type="rational"><var>fivecoin</var></span>個</p>
+                        <p>10元硬幣有<span class="sol" data-type="rational"><var>tencoin</var></span>個</p>
+                        </div>
+
+
+                        <div class="hints">
+					    <p>你能不能根據題目的條件，先猜猜看，或湊一下答案呢？又或著畫個圖想一想，幫助你湊數字？</P>
+						<p>如果湊不出答案，或不知道從何開始，我建議你先畫幾個圓圈，代表錢幣，再想辦法為這些錢幣添上合適的面額。</P>
+						<div class="graphie" id="circle1">initCircle(1.5,3);DrawDollar1(1.5,1);DrawDollar(1.5,3);</div>
+                        <p>例如這樣的一個畫法，代表有3個錢幣，其中有2個是元5元硬幣，1個是10元硬幣。</p>
+						<p>我們可以先畫<var>total</var>個圈，代表<var>total</var>個硬幣，再為這<var>total</var>個硬幣，都先畫上5元的面額：</p><div class="graphie" id="circle2">initCircle(1.5,total);DrawDollar(1.5,total);</div>
+						<p>如此一來，我們就有<var>total</var>個硬幣，金額是<var>total*5</var>元。</p>
+					    <p>但是根據題目的條件，我們總共有<var>totalfoot</var>元，所以顯然不可能全部<var>total</var>隻都是5元硬幣，一定有一些硬幣的面額是10元。</p>
+		                <p>如果我們把其中一個硬幣的面額再添上5元，它就會變成10元硬幣，而總腳金額也會增加5元，你能夠根據這個提示，修正總金額，找到答案嗎？</p>
+						<p>我們總共還要再添上<var>totaldollar</var>-<var>total</var>×5=<var>totaldollar-total*5</var>元。</p>
+						<div class="graphie" id="circle3">initCircle(1.5,total);DrawDollar1(1.5,tencoin);DrawDollar(1.5,total);</div>
+					    <p><u>把圖畫出來，答案就出來囉！一共是<var>fivecoin</var>個5元硬幣，<var>tencoin</var>個10元硬幣</u>。延伸思考：1)在解題的過程中，我們把這<var>total</var>個硬幣都些畫上5元的面額，這在數學解題的過程中叫做「特殊化」，透過
+						特殊化的手段考慮極端情形，往往可以讓我們對問題有更進一步的了解而獲得解題的靈感。如果反過來，考慮另一種特殊情形，先把每個硬幣都先畫上10元的面額，
+						也能夠解題嗎？2)如果今天硬幣的數量很多，例如硬幣總共100個，總金額840元，用畫圖的方法解題就太麻煩了，你有甚麼好方法在數量大
+						的時候依然可以快速解題嗎？事實上是有方法的，而這個尋找方法的過程，在數學上我們叫做「一般化」的推廣，是數學家很喜歡做的事。
+						如果你找到了，恭喜你的數學能力又大大增長了一節喔！</p>
+						<!--<p>四捨五入到整數位，即為答案分速<var>SPEED2</var>公尺</p>
+					    <!-- Any hints to show to the student. -->
+                        </div>
+				   <!--<div><code>\frac{1}{2}\times\frac{1}{7}</code> </div>-->
+				   </div>
+
+			　　</div>
+        </body>
+    </html>
